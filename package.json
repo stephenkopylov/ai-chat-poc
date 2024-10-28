@@ -13,7 +13,7 @@
   },
   "workspaces": [
     "web",
-    "mobile",
+    "mobile"
   ],
   "resolutions": {
   }
