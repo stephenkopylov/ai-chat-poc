@@ -57,15 +57,16 @@ function App(): React.JSX.Element {
     }, [chatMessages, newMessage]);
 
     return (
-        <SafeAreaView style={{flex: 1, backgroundColor: 'black', height:"100%"}}>
-            <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
-                <FlatList
-                    data={chatMessages}
-                    renderItem={renderItem}
-                    keyExtractor={(item) => item.id}
-                    inverted // This will make the FlatList start from the bottom
-                    contentContainerStyle={{paddingBottom: 10, paddingHorizontal: 10}}
-                />
+        <KeyboardAvoidingView style={styles.container} behavior="padding">
+            <FlatList
+                style={styles.flatlist}
+                data={chatMessages}
+                renderItem={renderItem}
+                keyExtractor={(item) => item.id}
+                inverted // This will make the FlatList start from the bottom
+                contentContainerStyle={{paddingBottom: 10, paddingHorizontal: 10}}
+            />
+            <SafeAreaView>
                 <View style={styles.inputContainer}>
                     <TextInput
                         style={styles.input}
@@ -77,13 +78,17 @@ function App(): React.JSX.Element {
                         <Text style={styles.sendButtonText}>Send</Text>
                     </TouchableOpacity>
                 </View>
-            </KeyboardAvoidingView>
-        </SafeAreaView>
+            </SafeAreaView>
+        </KeyboardAvoidingView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
+        backgroundColor: 'white',
+    },
+    flatlist: {
         flex: 1,
         backgroundColor: '#f0f0f0',
     },
