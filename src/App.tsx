@@ -62,7 +62,7 @@ function App(): React.JSX.Element {
                 style={styles.flatlist}
                 data={chatMessages}
                 renderItem={renderItem}
-                keyExtractor={(item) => item.id}
+                keyExtractor={(item: IMessage) => item.id}
                 inverted // This will make the FlatList start from the bottom
                 contentContainerStyle={{paddingBottom: 10, paddingHorizontal: 10}}
             />
