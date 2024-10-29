@@ -5,114 +5,139 @@
  * @format
  */
 
-import React from 'react';
-import type {PropsWithChildren} from 'react';
+import React, {useCallback, useState} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
+    SafeAreaView,
+    View,
+    Text,
+    FlatList,
+    StyleSheet,
+    TextInput,
+    TouchableOpacity,
+    KeyboardAvoidingView
 } from 'react-native';
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
+type IMessage = {
+    id: string;
+    text: string;
+    sender: 'user' | 'assistant';
+    timestamp: string;
 }
 
+
+const messages: IMessage[] = [
+    {id: '4', text: 'Sure, what’s your question?', sender: 'assistant', timestamp: '16:52'},
+    {id: '3', text: 'I have a question.', sender: 'user', timestamp: '16:51'},
+    {id: '2', text: 'Hi, how can I help you?', sender: 'assistant', timestamp: '16:50'},
+    {id: '1', text: 'Hello!', sender: 'user', timestamp: '16:49'},
+];
+
 function App(): React.JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
+    const [chatMessages, setChatMessages] = useState(messages);
+    const [newMessage, setNewMessage] = useState('');
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={backgroundStyle.backgroundColor}
-      />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+    const renderItem = ({item}: { item: IMessage }) => (
+        <View style={[styles.messageContainer, item.sender === 'user' ? styles.userMessage : styles.assistantMessage]}>
+            <Text style={styles.messageText}>{item.text}</Text>
+            <Text style={styles.timestamp}>{item.timestamp}</Text>
         </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
+    );
+
+    const handleSend = useCallback(() => {
+        if (newMessage.trim()) {
+            const message: IMessage = {
+                id: (chatMessages.length + 1).toString(),
+                text: newMessage,
+                sender: 'user',
+                timestamp: new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}),
+            };
+            setChatMessages([message, ...chatMessages]);
+            setNewMessage('');
+        }
+    }, [chatMessages, newMessage]);
+
+    return (
+        <SafeAreaView style={{flex: 1, backgroundColor: 'black', height:"100%"}}>
+            <KeyboardAvoidingView style={{flex: 1}} behavior="padding">
+                <FlatList
+                    data={chatMessages}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id}
+                    inverted // This will make the FlatList start from the bottom
+                    contentContainerStyle={{paddingBottom: 10, paddingHorizontal: 10}}
+                />
+                <View style={styles.inputContainer}>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Type a message..."
+                        value={newMessage}
+                        onChangeText={setNewMessage}
+                    />
+                    <TouchableOpacity onPress={handleSend} style={styles.sendButton}>
+                        <Text style={styles.sendButtonText}>Send</Text>
+                    </TouchableOpacity>
+                </View>
+            </KeyboardAvoidingView>
+        </SafeAreaView>
+    );
 }
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: '#f0f0f0',
+    },
+    messageContainer: {
+        maxWidth: '70%',
+        marginVertical: 5,
+        padding: 10,
+        borderRadius: 10,
+    },
+    userMessage: {
+        alignSelf: 'flex-end',
+        backgroundColor: '#0084ff',
+        borderTopRightRadius: 0,
+    },
+    assistantMessage: {
+        alignSelf: 'flex-start',
+        backgroundColor: 'pink',
+        borderTopLeftRadius: 0,
+    },
+    messageText: {
+        color: '#fff',
+    },
+    timestamp: {
+        fontSize: 10,
+        color: '#ddd',
+        textAlign: 'right',
+        marginTop: 5,
+    },
+    inputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 10,
+        borderTopWidth: 1,
+        borderColor: '#ddd',
+        backgroundColor: '#fff',
+    },
+    input: {
+        flex: 1,
+        height: 40,
+        paddingHorizontal: 10,
+        backgroundColor: '#f0f0f0',
+        borderRadius: 20,
+    },
+    sendButton: {
+        marginLeft: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
+        backgroundColor: '#0084ff',
+        borderRadius: 20,
+    },
+    sendButtonText: {
+        color: '#fff',
+        fontWeight: 'bold',
+    },
 });
 
 export default App;
