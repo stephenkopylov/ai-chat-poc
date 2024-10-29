@@ -1509,6 +1509,93 @@ PODS:
     - React-logger (= 0.76.0)
     - React-perflogger (= 0.76.0)
     - React-utils (= 0.76.0)
+  - RNReanimated (3.16.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - RNReanimated/reanimated (= 3.16.1)
+    - RNReanimated/worklets (= 3.16.1)
+    - Yoga
+  - RNReanimated/reanimated (3.16.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - RNReanimated/reanimated/apple (= 3.16.1)
+    - Yoga
+  - RNReanimated/reanimated/apple (3.16.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
+  - RNReanimated/worklets (3.16.1):
+    - DoubleConversion
+    - glog
+    - hermes-engine
+    - RCT-Folly (= 2024.01.01.00)
+    - RCTRequired
+    - RCTTypeSafety
+    - React-Core
+    - React-debug
+    - React-Fabric
+    - React-featureflags
+    - React-graphics
+    - React-ImageManager
+    - React-NativeModulesApple
+    - React-RCTFabric
+    - React-rendererdebug
+    - React-utils
+    - ReactCodegen
+    - ReactCommon/turbomodule/bridging
+    - ReactCommon/turbomodule/core
+    - Yoga
   - SocketRocket (0.7.1)
   - Yoga (0.0.0)
 
@@ -1577,6 +1664,7 @@ DEPENDENCIES:
   - React-utils (from `../../node_modules/react-native/ReactCommon/react/utils`)
   - ReactCodegen (from `build/generated/ios`)
   - ReactCommon/turbomodule/core (from `../../node_modules/react-native/ReactCommon`)
+  - RNReanimated (from `../../node_modules/react-native-reanimated`)
   - Yoga (from `../../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -1709,6 +1797,8 @@ EXTERNAL SOURCES:
     :path: build/generated/ios
   ReactCommon:
     :path: "../../node_modules/react-native/ReactCommon"
+  RNReanimated:
+    :path: "../../node_modules/react-native-reanimated"
   Yoga:
     :path: "../../node_modules/react-native/ReactCommon/yoga"
 
@@ -1775,6 +1865,7 @@ SPEC CHECKSUMS:
   React-utils: d9624101245ebaab39c9f1bd786132da0b4f27ff
   ReactCodegen: 24a667adc5346207bc8029c9bf99710aa67d4371
   ReactCommon: 429ca28cd813c31359c73ffac6dc24f93347d522
+  RNReanimated: df66350f1d4bb0fd312611d97883377a8c1e2b04
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: f8ec45ce98bba1bc93dd28f2ee37215180e6d2b6
 

@@ -24,6 +24,7 @@ type IMessage = {
     timestamp: string;
 }
 
+import Animated, {FadeInDown, Easing} from 'react-native-reanimated';
 
 const messages: IMessage[] = [
     {id: '4', text: 'Sure, what’s your question?', sender: 'assistant', timestamp: '16:52'},
@@ -37,10 +38,11 @@ function App(): React.JSX.Element {
     const [newMessage, setNewMessage] = useState('');
 
     const renderItem = ({item}: { item: IMessage }) => (
-        <View style={[styles.messageContainer, item.sender === 'user' ? styles.userMessage : styles.assistantMessage]}>
+        <Animated.View entering={FadeInDown.duration(500).easing(Easing.out(Easing.cubic))}
+                       style={[styles.messageContainer, item.sender === 'user' ? styles.userMessage : styles.assistantMessage]}>
             <Text style={styles.messageText}>{item.text}</Text>
             <Text style={styles.timestamp}>{item.timestamp}</Text>
-        </View>
+        </Animated.View>
     );
 
     const handleSend = useCallback(() => {
